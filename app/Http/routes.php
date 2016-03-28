@@ -16,5 +16,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', function () {
         return view('welcome');
     });
+    Route::get('/modules/add_modules', 'ModuleController@view_add_mod');
     Route::get('/home', 'HomeController@index');
 });
