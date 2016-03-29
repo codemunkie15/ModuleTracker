@@ -8,17 +8,27 @@
                     <div class="panel-heading">Add New Module</div>
 
                     <div class="panel-body">
-                        <form role="form" method="POST" action="{{ url('/modules/add_modules') }}">
+                        @if(count($errors->module) > 0)
+                        <div class="alert alert-success"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            @foreach($errors->module->all() as $error)
+                                {{ $error }}<br>
+                            @endforeach
+                        </div>
+                        @endif
+                        @if(session('module_success_message'))
+                            <div class="alert alert-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{ session('module_success_message') }}</div>
+                        @endif
+                        <form role="form" method="POST" action="{{ route('addNewModule') }}">
                             {!! csrf_field() !!}
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input type="text" name="module_code" class="form-control" placeholder="Module Code">
+                                        <input type="text" name="module_code" class="form-control" placeholder="Module Code" value="{{ Request::old('module_code') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        <input type="text" name="module_name" class="form-control" placeholder="Module Name">
+                                        <input type="text" name="module_name" class="form-control" placeholder="Module Name" value="{{ Request::old('module_name') }}">
                                     </div>
                                 </div>
                             </div>
@@ -37,22 +47,33 @@
                     <div class="panel-heading">Add New Assignment</div>
 
                     <div class="panel-body">
-                        <form role="form" method="POST" action="{{ url('/modules/add_modules') }}">
+                        @if(count($errors->assignment) > 0)
+                            <div class="alert alert-success"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                @foreach($errors->assignment->all() as $error)
+                                    {{ $error }}<br>
+                                @endforeach
+                            </div>
+                        @endif
+                        @if(session('assignment_success_message'))
+                            <div class="alert alert-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{ session('assignment_success_message') }}</div>
+                        @endif
+                        @if(count($modules) > 0)
+                        <form role="form" method="POST" action="{{ route('addNewAssignment') }}">
                             {!! csrf_field() !!}
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="form-group">
-                                        <select name="module" class="form-control">
+                                        <select name="module_id" class="form-control">
                                             <option value="null" disabled hidden selected>Choose a module...</option>
-                                            <option value="1">Module 1</option>
-                                            <option value="2">Module 2</option>
-                                            <option value="3">Module 3</option>
+                                            @foreach($modules as $module)
+                                                <option value="{{ $module->id }}" {{ (Request::old('module_id') == $module->id) ? 'selected' : '' }}>{{ '[' . $module->module_code . '] ' . $module->module_name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <div class="form-group">
-                                        <input type="text" name="assignment_name" class="form-control" placeholder="Assignment Name">
+                                        <input type="text" name="assignment_name" class="form-control" placeholder="Assignment Name" value="{{ Request::old('assignment_name') }}">
                                     </div>
                                 </div>
                             </div>
@@ -60,19 +81,22 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <input type="text" name="assignment_percentage" class="form-control" placeholder="Percentage of marks e.g. 40">
+                                            <input type="text" name="assignment_percentage" class="form-control" placeholder="Percentage of marks e.g. 40" value="{{ Request::old('assignment_percentage') }}">
                                             <div class="input-group-addon">%</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <input type="text" name="assignment_name" class="form-control" placeholder="Deadline e.g. 15/05/2016">
+                                        <input type="text" name="assignment_deadline" class="form-control" placeholder="Deadline e.g. 15-05-2016" value="{{ Request::old('assignment_deadline') }}">
                                     </div>
                                 </div>
                             </div>
                             <input type="submit" class="btn btn-success float-right" value="Add Assignment">
                         </form>
+                        @else
+                            You need to add a module before you can add any assignments.
+                        @endif
                     </div>
                 </div>
             </div>

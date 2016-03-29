@@ -47,20 +47,20 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Dashboard</a></li>
+                    <li><a href="{{ url('/home') }}">Summary</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('/modules/add_modules') }}">Add modules & assignments</a></li>
-                            <li><a href="{{ url('/modules/edit_modules') }}">Edit modules & assignments</a></li>
-                            <li><a href="{{ url('/modules/add_marks') }}">Add assignment marks</a></li>
+                            <li><a href="{{ url('/add') }}">Add modules & assignments</a></li>
+                            <li><a href="{{ url('/edit') }}">Edit modules & assignments</a></li>
+                            <li><a href="{{ url('/add_marks') }}">Add assignment marks</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('/tools/mark_calc') }}">Mark Calculator</a></li>
-                            <li><a href="{{ url('/tools/graphs') }}">Graphs and Charts</a></li>
+                            <li><a href="{{ url('/mark_calc') }}">Mark Calculator</a></li>
+                            <li><a href="{{ url('/graphs') }}">Graphs and Charts</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -102,6 +102,7 @@
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/sorttable.js') }}"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>

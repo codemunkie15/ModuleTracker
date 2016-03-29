@@ -13,9 +13,35 @@
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
+
+    /**
+     * Welcome route (homepage)
+     * No controller necessary
+     */
     Route::get('/', function () {
         return view('welcome');
     });
-    Route::get('/modules/add_modules', 'ModuleController@view_add_mod');
-    Route::get('/home', 'HomeController@index');
+
+    /**
+     * Home route (Dashboard)
+     * Home controller forces auth
+     * Optional parameter to sort the data
+     */
+    Route::get('/home/{order_by?}', 'HomeController@view_home');
+
+    /**
+     * Add modules + assignments route
+     * Uses the module controller to force auth
+     */
+    Route::get('/add', 'ModuleController@view_add');
+
+    /**
+     * Post route for the add module form
+     */
+    Route::post('/add/new_module', 'ModuleController@add_new_module')->name('addNewModule');
+
+    /**
+     * Post route for the add assignment form
+     */
+    Route::post('/add/new_assignment', 'ModuleController@add_new_assignment')->name('addNewAssignment');
 });

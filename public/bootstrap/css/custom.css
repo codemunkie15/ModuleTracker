@@ -7,8 +7,19 @@
 footer .text {
     text-align: center;
     color: #666;
+    margin-bottom: 30px;
 }
 
 .float-right {
     float: right;
+}
+
+.error-box {
+    margin-bottom: 10px;
+}
+
+.module_header {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
