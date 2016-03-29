@@ -34,8 +34,19 @@ class ModuleController extends Controller {
     /**
      * Show the edit modules and assignments view
      */
-    public function view_edit_mod() {
-        return view('edit_modules');
+    public function view_edit() {
+        // Get the modules for the user so we can display it
+        $modules = Module::where('user_id', Auth::id())->orderBy('module_code', 'asc')->get();
+        $assignments = array();
+        // Loop through each module, fetching the assignments for the module
+        foreach($modules as $module) {
+            // Add the assignments to an arry to access later
+            $assignments[] = Assignment::where('module_id', $module->id)->orderBy('assignment_name', 'asc')->get();
+        }
+        return view('edit_modules', [
+            'modules' => $modules,
+            'assignments' => $assignments
+        ]);
     }
 
     /**

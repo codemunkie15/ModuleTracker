@@ -36,6 +36,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/add', 'ModuleController@view_add');
 
     /**
+     * Add modules + assignments route
+     * Uses the module controller to force auth
+     */
+    Route::get('/edit', 'ModuleController@view_edit');
+
+    /**
      * Post route for the add module form
      */
     Route::post('/add/new_module', 'ModuleController@add_new_module')->name('addNewModule');
