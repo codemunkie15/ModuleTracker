@@ -21,33 +21,41 @@
                     </div>
 
                     <div class="panel-body">
-                        <?php $counter = 0 ?>
-                        @foreach($modules as $module)
-                            <div class="module_header">{{ '[' . $module->module_code . '] ' . $module->module_name }}</div>
-                            <table class="table table-hover sortable" width="100%">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Assignment Name</th>
-                                    <th>Percentage</th>
-                                    <th>Current Mark</th>
-                                    <th>Deadline</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($assignments[$counter] as $assignment)
-                                    <tr>
-                                        <td>{{ $assignment->id }}</td>
-                                        <td>{{ $assignment->assignment_name }}</td>
-                                        <td>{{ $assignment->mark_percentage }}%</td>
-                                        <td>{{ $assignment->current_mark }}</td>
-                                        <td>{{ $assignment->deadline }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            <?php $counter++ ?>
-                        @endforeach
+                        @if(count($modules) > 0)
+                            <?php $counter = 0 ?>
+                            @foreach($modules as $module)
+                                <div class="module_header">{{ '[' . $module->module_code . '] ' . $module->module_name }}</div>
+                                @if(count($assignments[$counter]) > 0)
+                                    <table class="table table-hover sortable" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th width="54%">Assignment Name</th>
+                                            <th width="15%">Percentage</th>
+                                            <th width="16%">Current Mark</th>
+                                            <th width="16%">Deadline</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($assignments[$counter] as $assignment)
+                                            <tr>
+                                                <td>{{ $assignment->assignment_name }}</td>
+                                                <td>{{ $assignment->mark_percentage }}%</td>
+                                                <td>{{ $assignment->current_mark }}</td>
+                                                <td>{{ $assignment->deadline }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <div class="no-assignments">
+                                        There are no assignments yet for this module.<br>You can add some by <a href="{{ url('/add') }}">clicking here</a>.
+                                    </div>
+                                @endif
+                                <?php $counter++ ?>
+                            @endforeach
+                        @else
+                            You don't have any modules or assignments yet.<br>You can add some by <a href="{{ url('/add') }}">clicking here</a>.
+                        @endif
                     </div>
                 </div>
             </div>
