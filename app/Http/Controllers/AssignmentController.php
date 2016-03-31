@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 use App\Http\Requests;
+use App\Assignment;
+use Validator;
 
 class AssignmentController extends Controller {
 
@@ -14,6 +16,29 @@ class AssignmentController extends Controller {
      */
     public function __construct() {
         $this->middleware('auth');
+    }
+
+    /**
+     * Show the edit assignment view
+     * Pass the current assignment data so we can add it to the form (so the user can edit it)
+     */
+    public function view_edit_assignment($assignment_id) {
+        // Get the modules for the select box
+        $user = Auth::user();
+        $modules = $user->modules()->orderBy('module_code', 'asc')->get();
+        // Get the assignment we want to edit
+        $assignment = Assignment::where('id', $assignment_id)->first();
+        // If the assignment doesn't belong to the user
+        if($assignment != null) {
+            if ($assignment->module->user_id != $user->id) {
+                // Remove the assignment to force an error on the view
+                $assignment = null;
+            }
+        }
+        return view('edit_assignment', [
+            'assignment' => $assignment,
+            'modules' => $modules
+        ]);
     }
 
     /**
@@ -46,5 +71,36 @@ class AssignmentController extends Controller {
         $assignment->save();
         // Redirect to add module page and pass success message
         return redirect()->back()->with('assignment_success_message', 'The assignment has successfully been added.');
+    }
+
+    /**
+     * Edit the assignment in the database - called from the post route
+     */
+    public function edit_assignment(Request $request) {
+        // Setup a validator (with a custom error message)
+        $validator = Validator::make($request->all(), [
+            'module_id' => 'required',
+            'assignment_name' => 'required|max:80',
+            'assignment_percentage' => 'required|between:1,100|integer',
+            'assignment_deadline' => 'required|date_format:d-m-Y'
+        ], [
+            'module_id.required' => 'You need to choose a module for the assignment.'
+        ]);
+
+        // Validate
+        if($validator->fails()) {
+            // Redirect to module view and pass the errors
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $assignment = Assignment::find($request['assignment_id']);
+        $assignment->module_id = $request['module_id'];
+        $assignment->assignment_name = $request['assignment_name'];
+        $assignment->mark_percentage = $request['assignment_percentage'];
+        $assignment->deadline = $request['assignment_deadline'];
+        $assignment->update();
+
+        // Redirect to add module view and pass a success message
+        return redirect()->back()->with('assignment_success_message', 'The assignment has successfully been edited.');
     }
 }

@@ -42,6 +42,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/edit/module/{id}', 'ModuleController@view_edit_module');
 
     /**
+     * Edit assignments route
+     * Uses the assignment controller to force auth
+     */
+    Route::get('/edit/assignment/{id}', 'AssignmentController@view_edit_assignment');
+
+    /**
      * Post route for the add module form
      */
     Route::post('/add/new_module', 'ModuleController@add_new_module')->name('addNewModule');
@@ -52,7 +58,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/add/new_assignment', 'AssignmentController@add_new_assignment')->name('addNewAssignment');
 
     /**
-     * Post route for the add assignment form
+     * Post route for the edit module form
      */
     Route::post('/edit/module', 'ModuleController@edit_module')->name('editModule');
+
+    /**
+     * Post route for the edit assignment form
+     */
+    Route::post('/edit/assignment', 'AssignmentController@edit_assignment')->name('editAssignment');
 });
