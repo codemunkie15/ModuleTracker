@@ -22,12 +22,11 @@
 
                     <div class="panel-body">
                         @if(count($modules) > 0)
-                            <?php $counter = 0 ?>
                             @foreach($modules as $module)
                                 <div class="module_header">
                                     {{ '[' . $module->module_code . '] ' . $module->module_name }} [<a href="{{ url('/edit/module/'.$module->id) }}">edit</a>]</span>
                                 </div>
-                                @if(count($assignments[$counter]) > 0)
+                                @if(count($module->assignments) > 0)
                                     <table class="table table-hover sortable" width="100%">
                                         <thead>
                                         <tr>
@@ -39,7 +38,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($assignments[$counter] as $assignment)
+                                        @foreach($module->assignments as $assignment)
                                             <tr>
                                                 <td>{{ $assignment->assignment_name }}</td>
                                                 <td>{{ $assignment->mark_percentage }}%</td>
@@ -55,7 +54,6 @@
                                         There are no assignments yet for this module.<br>You can add some by <a href="{{ url('/add') }}">clicking here</a>.
                                     </div>
                                 @endif
-                                <?php $counter++ ?>
                             @endforeach
                         @else
                             You don't have any modules or assignments yet.<br>You can add some by <a href="{{ url('/add') }}">clicking here</a>.

@@ -24,7 +24,8 @@ class ModuleController extends Controller {
      */
     public function view_add() {
         // Get the modules for the user so we can display it on the select box (when adding an assignment)
-        $modules = Module::where('user_id', Auth::id())->orderBy('module_code', 'asc')->get();
+        $user = Auth::user();
+        $modules = $user->modules()->orderBy('module_code', 'asc')->get();
         // Return the view with the data
         return view('add', [
             'modules' => $modules
@@ -37,10 +38,8 @@ class ModuleController extends Controller {
      */
     public function view_edit_module($module_id) {
         // Get the module we want to edit
-        $module = Module::where([
-            ['id', $module_id],
-            ['user_id', Auth::id()]
-        ])->first();
+        $user = Auth::user();
+        $module = $user->modules()->where('id', $module_id)->first();
         return view('edit_module', [
             'module' => $module
         ]);
@@ -67,7 +66,7 @@ class ModuleController extends Controller {
         $module->module_code = $request['module_code'];
         $module->module_name = $request['module_name'];
 
-        // Save to database
+        // Save the module to the user (using Laravel relations)
         $request->user()->modules()->save($module);
         // Redirect to add module view and pass a success message
         return redirect()->back()->with('module_success_message', 'The module has successfully been added.');
