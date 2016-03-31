@@ -24,15 +24,19 @@
                         @if(count($modules) > 0)
                             <?php $counter = 0 ?>
                             @foreach($modules as $module)
-                                <div class="module_header">{{ '[' . $module->module_code . '] ' . $module->module_name }}</div>
+                                <div class="module_header">
+                                    <span class="left">{{ '[' . $module->module_code . '] ' . $module->module_name }}</span>
+                                    <span class="right"><a href="{{ url('/edit/module/'.$module->id) }}">Edit</a> | <a href="{{ url('/delete/module/'.$module->id) }}">Delete</a></span>
+                                </div>
                                 @if(count($assignments[$counter]) > 0)
                                     <table class="table table-hover sortable" width="100%">
                                         <thead>
                                         <tr>
-                                            <th width="54%">Assignment Name</th>
-                                            <th width="15%">Percentage</th>
-                                            <th width="16%">Current Mark</th>
-                                            <th width="16%">Deadline</th>
+                                            <th width="53%">Assignment Name</th>
+                                            <th width="11%">Percentage</th>
+                                            <th width="8%">Mark</th>
+                                            <th width="14%">Deadline</th>
+                                            <th width="14%">Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -42,6 +46,7 @@
                                                 <td>{{ $assignment->mark_percentage }}%</td>
                                                 <td>{{ $assignment->current_mark }}</td>
                                                 <td>{{ $assignment->deadline }}</td>
+                                                <td><a href="{{ url('/edit/assignment/'.$assignment->id) }}">Edit</a> | <a href="{{ url('/delete/assignment/'.$assignment->id) }}">Delete</a></td>
                                             </tr>
                                         @endforeach
                                         </tbody>

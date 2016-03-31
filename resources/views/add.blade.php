@@ -9,9 +9,9 @@
 
                     <div class="panel-body">
                         @if(count($errors->module) > 0)
-                        <div class="alert alert-success"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <div class="alert alert-danger">
                             @foreach($errors->module->all() as $error)
-                                {{ $error }}<br>
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{ $error }}<br>
                             @endforeach
                         </div>
                         @endif
@@ -48,9 +48,9 @@
 
                     <div class="panel-body">
                         @if(count($errors->assignment) > 0)
-                            <div class="alert alert-success"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <div class="alert alert-danger">
                                 @foreach($errors->assignment->all() as $error)
-                                    {{ $error }}<br>
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{ $error }}<br>
                                 @endforeach
                             </div>
                         @endif

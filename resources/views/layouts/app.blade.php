@@ -8,7 +8,7 @@
     <title>Module Tracker</title>
 
     <!-- Fonts -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+    <link href="{{ asset('bootstrap/css/font-awesome.min.css') }}" rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
@@ -52,7 +52,6 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('/add') }}">Add modules & assignments</a></li>
-                            <li><a href="{{ url('/edit') }}">Edit modules & assignments</a></li>
                             <li><a href="{{ url('/add_marks') }}">Add assignment marks</a></li>
                         </ul>
                     </li>
@@ -100,7 +99,7 @@
     </div>
 
     <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="{{ asset('bootstrap/js/jquery-1.12.2.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/sorttable.js') }}"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}

@@ -26,7 +26,7 @@ class ModuleController extends Controller {
         // Get the modules for the user so we can display it on the select box (when adding an assignment)
         $modules = Module::where('user_id', Auth::id())->orderBy('module_code', 'asc')->get();
         // Return the view with the data
-        return view('add_modules', [
+        return view('add', [
             'modules' => $modules
         ]);
     }
@@ -43,10 +43,35 @@ class ModuleController extends Controller {
             // Add the assignments to an arry to access later
             $assignments[] = Assignment::where('module_id', $module->id)->orderBy('assignment_name', 'asc')->get();
         }
-        return view('edit_modules', [
+        return view('edit', [
             'modules' => $modules,
             'assignments' => $assignments
         ]);
+    }
+
+    public function view_edit_mod(Request $request) {
+        // Get the module we want to edit
+        $module = Module::where('id', $request['module_id'])->first();
+        return view('edit_module', [
+            'module' => $module
+        ]);
+    }
+
+    public function edit_module(Request $request) {
+        // Create a validator
+        $validator = Validator::make($request->all(), [
+            'module_code' => 'required|max:20',
+            'module_name' => 'required|max:50'
+        ]);
+
+        // Validate
+        if($validator->fails()) {
+            // Redirect to module view and pass the errors
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Redirect to add module view and pass a success message
+        return redirect()->back()->with('module_success_message', 'The module has successfully been edited.');
     }
 
     /**
