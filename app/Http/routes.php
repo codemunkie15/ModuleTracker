@@ -49,7 +49,7 @@ Route::group(['middleware' => 'web'], function () {
     /**
      * Post route for the add assignment form
      */
-    Route::post('/add/new_assignment', 'ModuleController@add_new_assignment')->name('addNewAssignment');
+    Route::post('/add/new_assignment', 'AssignmentController@add_new_assignment')->name('addNewAssignment');
 
     /**
      * Post route for the add assignment form

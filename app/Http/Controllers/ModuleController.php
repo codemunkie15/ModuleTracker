@@ -31,6 +31,10 @@ class ModuleController extends Controller {
         ]);
     }
 
+    /**
+     * Show the edit module view
+     * Pass the current module data so we can add it to the form (so the user can edit it)
+     */
     public function view_edit_module($module_id) {
         // Get the module we want to edit
         $module = Module::where([
@@ -40,28 +44,6 @@ class ModuleController extends Controller {
         return view('edit_module', [
             'module' => $module
         ]);
-    }
-
-    public function edit_module(Request $request) {
-        // Create a validator
-        $validator = Validator::make($request->all(), [
-            'module_code' => 'required|max:20',
-            'module_name' => 'required|max:50'
-        ]);
-
-        // Validate
-        if($validator->fails()) {
-            // Redirect to module view and pass the errors
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        $module = Module::find($request['module_id']);
-        $module->module_code = $request['module_code'];
-        $module->module_name = $request['module_name'];
-        $module->update();
-
-        // Redirect to add module view and pass a success message
-        return redirect()->back()->with('module_success_message', 'The module has successfully been edited.');
     }
 
     /**
@@ -82,45 +64,37 @@ class ModuleController extends Controller {
 
         // Create the module
         $module = new Module();
-        $module->user_id = Auth::id();
         $module->module_code = $request['module_code'];
         $module->module_name = $request['module_name'];
 
         // Save to database
-        $module->save();
+        $request->user()->modules()->save($module);
         // Redirect to add module view and pass a success message
         return redirect()->back()->with('module_success_message', 'The module has successfully been added.');
     }
 
     /**
-     * Add a new assignment - called from the post route (Form)
+     * Edit the module in the database - called from the post route
      */
-    public function add_new_assignment(Request $request) {
-        // Setup a validator (with a custom error message)
+    public function edit_module(Request $request) {
+        // Create a validator
         $validator = Validator::make($request->all(), [
-            'module_id' => 'required',
-            'assignment_name' => 'required|max:80',
-            'assignment_percentage' => 'required|between:1,100|integer',
-            'assignment_deadline' => 'required|date_format:d-m-Y'
-        ], [
-            'module_id.required' => 'You need to choose a module for the assignment.'
+            'module_code' => 'required|max:20',
+            'module_name' => 'required|max:50'
         ]);
 
         // Validate
         if($validator->fails()) {
-            return redirect()->back()->withErrors($validator, 'assignment')->withInput();
+            // Redirect to module view and pass the errors
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Create assignment
-        $assignment = new Assignment();
-        $assignment->module_id = $request['module_id'];
-        $assignment->assignment_name = $request['assignment_name'];
-        $assignment->mark_percentage = $request['assignment_percentage'];
-        $assignment->deadline = $request['assignment_deadline'];
+        $module = Module::find($request['module_id']);
+        $module->module_code = $request['module_code'];
+        $module->module_name = $request['module_name'];
+        $module->update();
 
-        // Save to database
-        $assignment->save();
-        // Redirect to add module page and pass success message
-        return redirect()->back()->with('assignment_success_message', 'The assignment has successfully been added.');
+        // Redirect to add module view and pass a success message
+        return redirect()->back()->with('module_success_message', 'The module has successfully been edited.');
     }
 }
