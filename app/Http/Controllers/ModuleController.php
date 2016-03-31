@@ -31,27 +31,12 @@ class ModuleController extends Controller {
         ]);
     }
 
-    /**
-     * Show the edit modules and assignments view
-     */
-    public function view_edit() {
-        // Get the modules for the user so we can display it
-        $modules = Module::where('user_id', Auth::id())->orderBy('module_code', 'asc')->get();
-        $assignments = array();
-        // Loop through each module, fetching the assignments for the module
-        foreach($modules as $module) {
-            // Add the assignments to an arry to access later
-            $assignments[] = Assignment::where('module_id', $module->id)->orderBy('assignment_name', 'asc')->get();
-        }
-        return view('edit', [
-            'modules' => $modules,
-            'assignments' => $assignments
-        ]);
-    }
-
-    public function view_edit_mod(Request $request) {
+    public function view_edit_module($module_id) {
         // Get the module we want to edit
-        $module = Module::where('id', $request['module_id'])->first();
+        $module = Module::where([
+            ['id', $module_id],
+            ['user_id', Auth::id()]
+        ])->first();
         return view('edit_module', [
             'module' => $module
         ]);
@@ -69,6 +54,11 @@ class ModuleController extends Controller {
             // Redirect to module view and pass the errors
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        $module = Module::find($request['module_id']);
+        $module->module_code = $request['module_code'];
+        $module->module_name = $request['module_name'];
+        $module->update();
 
         // Redirect to add module view and pass a success message
         return redirect()->back()->with('module_success_message', 'The module has successfully been edited.');

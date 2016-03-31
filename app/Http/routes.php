@@ -36,10 +36,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/add', 'ModuleController@view_add');
 
     /**
-     * Edit modules + assignments route
+     * Edit modules route
      * Uses the module controller to force auth
      */
-    Route::get('/edit', 'ModuleController@view_edit');
+    Route::get('/edit/module/{id}', 'ModuleController@view_edit_module');
 
     /**
      * Post route for the add module form
@@ -50,4 +50,9 @@ Route::group(['middleware' => 'web'], function () {
      * Post route for the add assignment form
      */
     Route::post('/add/new_assignment', 'ModuleController@add_new_assignment')->name('addNewAssignment');
+
+    /**
+     * Post route for the add assignment form
+     */
+    Route::post('/edit/module', 'ModuleController@edit_module')->name('editModule');
 });
