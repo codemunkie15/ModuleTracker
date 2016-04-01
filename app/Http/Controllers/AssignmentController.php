@@ -104,7 +104,27 @@ class AssignmentController extends Controller {
         // Update in database
         $assignment->update();
 
-        // Redirect to add module view and pass a success message
+        // Redirect to edit assignment view and pass a success message
         return redirect()->back()->with('assignment_success_message', 'The assignment has successfully been edited.');
+    }
+
+    public function delete_assignment($assignment_id) {
+        $assignment = Assignment::where('id', $assignment_id)->first();
+        $user = Auth::user();
+        $messages = array();
+        // If the assignment exists and it belongs to the user
+        if($assignment != null) {
+            if ($assignment->module->user_id == $user->id) {
+                // Delete the assignment
+                $assignment->delete();
+                // Add the success message
+                $messages = array(
+                    'success_message' => 'The assignment has successfully been deleted.'
+                );
+            }
+        }
+
+        // Redirect to edit assignment view and pass a success message
+        return redirect()->route('summary')->with($messages);
     }
 }

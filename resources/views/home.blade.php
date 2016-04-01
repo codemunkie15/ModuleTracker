@@ -21,6 +21,9 @@
                     </div>
 
                     <div class="panel-body">
+                        @if(session('success_message'))
+                            <div class="alert alert-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{ session('success_message') }}</div>
+                        @endif
                         @if(count($modules) > 0)
                             @foreach($modules as $module)
                                 <div class="module_header">
@@ -38,7 +41,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($module->assignments as $assignment)
+                                        @foreach($module->assignments()->orderBy('assignment_name', 'asc')->get() as $assignment)
                                             <tr>
                                                 <td>{{ $assignment->assignment_name }}</td>
                                                 <td>{{ $assignment->mark_percentage }}%</td>

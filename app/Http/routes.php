@@ -27,7 +27,7 @@ Route::group(['middleware' => 'web'], function () {
      * Home controller forces auth
      * Optional parameter to sort the data
      */
-    Route::get('/home/{order_by?}', 'HomeController@view_home');
+    Route::get('/home/{order_by?}', 'HomeController@view_home')->name('summary');
 
     /**
      * Add modules + assignments route
@@ -46,6 +46,12 @@ Route::group(['middleware' => 'web'], function () {
      * Uses the assignment controller to force auth
      */
     Route::get('/edit/assignment/{id}', 'AssignmentController@view_edit_assignment');
+
+    /**
+     * Delete assignment route
+     * Uses the assignment controller to force auth
+     */
+    Route::get('/delete/assignment/{id}', 'AssignmentController@delete_assignment');
 
     /**
      * Post route for the add module form
