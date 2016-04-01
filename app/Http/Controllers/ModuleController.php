@@ -88,12 +88,15 @@ class ModuleController extends Controller {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // Find the module we are editing
         $module = Module::find($request['module_id']);
+        // Edit the fields
         $module->module_code = $request['module_code'];
         $module->module_name = $request['module_name'];
+        // Update in database
         $module->update();
 
-        // Redirect to add module view and pass a success message
+        // Redirect to edit module view and pass a success message
         return redirect()->back()->with('module_success_message', 'The module has successfully been edited.');
     }
 }

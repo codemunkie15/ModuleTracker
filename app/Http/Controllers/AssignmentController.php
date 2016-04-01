@@ -26,9 +26,10 @@ class AssignmentController extends Controller {
         // Get the modules for the select box
         $user = Auth::user();
         $modules = $user->modules()->orderBy('module_code', 'asc')->get();
-        // Get the assignment we want to edit
+        // Get the assignment we want to edit (for some reason Assignment::find wouldn't work here so i've had to use a work around
+        // I also tried $user->modules()->assignments() but that didn't work either so I checked for the user_id manually in the if statement below
         $assignment = Assignment::where('id', $assignment_id)->first();
-        // If the assignment doesn't belong to the user
+        // If the assignment doesn't belong to the user (or if the assignment doesn't exist)
         if($assignment != null) {
             if ($assignment->module->user_id != $user->id) {
                 // Remove the assignment to force an error on the view
@@ -93,11 +94,14 @@ class AssignmentController extends Controller {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // Find the assignment we are editing
         $assignment = Assignment::find($request['assignment_id']);
+        // Edit the fields
         $assignment->module_id = $request['module_id'];
         $assignment->assignment_name = $request['assignment_name'];
         $assignment->mark_percentage = $request['assignment_percentage'];
         $assignment->deadline = $request['assignment_deadline'];
+        // Update in database
         $assignment->update();
 
         // Redirect to add module view and pass a success message
