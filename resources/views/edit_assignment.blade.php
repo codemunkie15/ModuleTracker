@@ -47,7 +47,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" name="assignment_mark" class="form-control" placeholder="Current mark e.g. 0" value="{{ (Request::old('assignment_mark') == "") ? $assignment->current_mark : Request::old('assignment_mark') }}">
+                                                <div class="input-group-addon">%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <input type="text" name="assignment_deadline" class="form-control" placeholder="Deadline e.g. 15-05-2016" value="{{ (Request::old('assignment_deadline') == "") ? $assignment->deadline : Request::old('assignment_deadline') }}">
                                         </div>

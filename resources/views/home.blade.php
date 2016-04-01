@@ -42,7 +42,7 @@
                                             <tr>
                                                 <td>{{ $assignment->assignment_name }}</td>
                                                 <td>{{ $assignment->mark_percentage }}%</td>
-                                                <td>{{ $assignment->current_mark }}</td>
+                                                <td>{{ $assignment->current_mark }}%</td>
                                                 <td>{{ $assignment->deadline }}</td>
                                                 <td>[<a href="{{ url('/edit/assignment/'.$assignment->id) }}">edit</a>]</td>
                                             </tr>
