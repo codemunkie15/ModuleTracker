@@ -13,4 +13,11 @@ class Module extends Model
     public function assignments() {
         return $this->hasMany('App\Assignment');
     }
+
+    public function delete() {
+        // Delete all the assignments for the module
+        $this->assignments()->delete();
+        // Delete the module
+        return parent::delete();
+    }
 }

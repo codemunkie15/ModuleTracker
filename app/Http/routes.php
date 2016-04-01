@@ -42,6 +42,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/edit/module/{id}', 'ModuleController@view_edit_module');
 
     /**
+     * Delete module route
+     * Uses the assignment controller to force auth
+     */
+    Route::get('/delete/module/{id}', 'ModuleController@delete_module');
+
+    /**
      * Edit assignments route
      * Uses the assignment controller to force auth
      */

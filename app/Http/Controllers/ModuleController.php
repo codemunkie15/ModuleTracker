@@ -99,4 +99,23 @@ class ModuleController extends Controller {
         // Redirect to edit module view and pass a success message
         return redirect()->back()->with('module_success_message', 'The module has successfully been edited.');
     }
+
+    public function delete_module($module_id) {
+        // Get the module we want to delete
+        $user = Auth::user();
+        $module = $user->modules()->where('id', $module_id)->first();
+        $messages = array();
+        // If the module exists and it belongs to the user
+        if($module != null) {
+            // Delete the assignment
+            $module->delete();
+            // Add the success message
+            $messages = array(
+                'success_message' => 'The module has successfully been deleted.'
+            );
+        }
+
+        // Redirect to edit assignment view and pass a success message
+        return redirect()->route('summary')->with($messages);
+    }
 }

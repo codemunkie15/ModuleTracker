@@ -34,13 +34,17 @@
                                     </div>
                                 </div>
                                 <input type="hidden" name="module_id" value="{{ $module->id }}">
-                                <div class="form-inline float-right">
+                                <div class="form-group form-inline float-right">
                                     <div class="form-group">
                                         <a class="btn btn-danger" href="{{ url('delete/module/'.$module->id) }}" role="button">Delete Module</a>
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" class="btn btn-success" value="Edit Module">
                                     </div>
+                                </div>
+                                <div style="clear: right;"></div>
+                                <div class="float-right">
+                                    If you delete this module it will also delete any connected assignments
                                 </div>
                             </form>
                         @else
