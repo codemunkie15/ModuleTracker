@@ -20,7 +20,7 @@
                 <div class="panel-heading">Inside Look</div>
 
                 <div class="panel-body">
-                    [Screenshot of the site when logged in will go here.]
+                    <img src="{{ asset('bootstrap/img/screenshot.png') }}" class="img-responsive">
                 </div>
             </div>
         </div>

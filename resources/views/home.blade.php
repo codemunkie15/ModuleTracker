@@ -6,7 +6,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Summary
+                        Module and assignment summary
                         <div class="pull-right">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -45,12 +45,21 @@
                                             <tr>
                                                 <td>{{ $assignment->assignment_name }}</td>
                                                 <td>{{ $assignment->mark_percentage }}%</td>
-                                                <td>{{ $assignment->current_mark }}</td>
+                                                <td>{{ $assignment->current_mark }}%</td>
                                                 <td>{{ $assignment->deadline }}</td>
                                                 <td>[<a href="{{ url('/edit/assignment/'.$assignment->id) }}">edit</a>]</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td></td>
+                                                <td><b>Average:</b></td>
+                                                <td>{{ $averages[$module->id] }}%</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 @else
                                     <div class="no-assignments">
