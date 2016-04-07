@@ -51,6 +51,7 @@ class AssignmentController extends Controller {
             'module_id' => 'required',
             'assignment_name' => 'required|max:80',
             'assignment_percentage' => 'required|between:1,100|integer',
+            'assignment_mark' => 'required|between:1,100|integer',
             'assignment_deadline' => 'required|date_format:d-m-Y'
         ], [
             'module_id.required' => 'You need to choose a module for the assignment.'
@@ -66,6 +67,7 @@ class AssignmentController extends Controller {
         $assignment->module_id = $request['module_id'];
         $assignment->assignment_name = $request['assignment_name'];
         $assignment->mark_percentage = $request['assignment_percentage'];
+        $assignment->current_mark = $request['assignment_mark'];
         $assignment->deadline = $request['assignment_deadline'];
 
         // Save to database
@@ -83,6 +85,7 @@ class AssignmentController extends Controller {
             'module_id' => 'required',
             'assignment_name' => 'required|max:80',
             'assignment_percentage' => 'required|between:1,100|integer',
+            'assignment_mark' => 'required|between:1,100|integer',
             'assignment_deadline' => 'required|date_format:d-m-Y'
         ], [
             'module_id.required' => 'You need to choose a module for the assignment.'
@@ -100,6 +103,7 @@ class AssignmentController extends Controller {
         $assignment->module_id = $request['module_id'];
         $assignment->assignment_name = $request['assignment_name'];
         $assignment->mark_percentage = $request['assignment_percentage'];
+        $assignment->current_mark = $request['assignment_mark'];
         $assignment->deadline = $request['assignment_deadline'];
         // Update in database
         $assignment->update();
