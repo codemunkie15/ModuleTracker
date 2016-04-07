@@ -51,7 +51,7 @@ class AssignmentController extends Controller {
             'module_id' => 'required',
             'assignment_name' => 'required|max:80',
             'assignment_percentage' => 'required|between:1,100|integer',
-            'assignment_mark' => 'required|between:1,100|integer',
+            'assignment_mark' => 'required|between:0,100|integer',
             'assignment_deadline' => 'required|date_format:d-m-Y'
         ], [
             'module_id.required' => 'You need to choose a module for the assignment.'
@@ -85,7 +85,7 @@ class AssignmentController extends Controller {
             'module_id' => 'required',
             'assignment_name' => 'required|max:80',
             'assignment_percentage' => 'required|between:1,100|integer',
-            'assignment_mark' => 'required|between:1,100|integer',
+            'assignment_mark' => 'required|between:0,100|integer',
             'assignment_deadline' => 'required|date_format:d-m-Y'
         ], [
             'module_id.required' => 'You need to choose a module for the assignment.'

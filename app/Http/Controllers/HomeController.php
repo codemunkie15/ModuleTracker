@@ -28,14 +28,22 @@ class HomeController extends Controller
         $averages = [];
         // Go through every module
         foreach($modules as $module) {
-            // Reset mark count
-            $mark_count = 0;
-            // Go through every assignment for the module
-            foreach($module->assignments() as $assignment) {
-                $mark_count += $assignment->current_mark;
+            // Get the assignments
+            $mod_assignments = $module->assignments()->get();
+            // Check if there are any assignments for the module
+            if(count($mod_assignments) > 0) {
+                // Reset mark count
+                $mark_count = 0;
+                // Go through every assignment for the module
+                foreach ($mod_assignments as $assignment) {
+                    $mark_count += $assignment->current_mark;
+                }
+                // Work out the average and store it
+                $averages[$module->id] = $mark_count / count($mod_assignments);
+            } else {
+                // No assignments so average is 0
+                $averages[$module->id] = 0;
             }
-            // Work out the average and store it
-            $averages[$module->id] = $mark_count / count($module->assignments());
         }
         // Return the view passing the data
         return view('home', [
