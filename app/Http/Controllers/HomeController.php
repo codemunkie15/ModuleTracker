@@ -36,10 +36,10 @@ class HomeController extends Controller
                 $mark_count = 0;
                 // Go through every assignment for the module
                 foreach ($mod_assignments as $assignment) {
-                    $mark_count += $assignment->current_mark;
+                    $mark_count += $assignment->current_mark * ($assignment->mark_percentage / 100);
                 }
                 // Work out the average and store it
-                $averages[$module->id] = $mark_count / count($mod_assignments);
+                $averages[$module->id] = round($mark_count, 2);
             } else {
                 // No assignments so average is 0
                 $averages[$module->id] = 0;

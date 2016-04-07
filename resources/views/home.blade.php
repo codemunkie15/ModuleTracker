@@ -54,7 +54,7 @@
                                         <tfoot>
                                             <tr>
                                                 <td></td>
-                                                <td><b>Average:</b></td>
+                                                <td><b>Overall:</b></td>
                                                 <td>{{ $averages[$module->id] }}%</td>
                                                 <td></td>
                                                 <td></td>
