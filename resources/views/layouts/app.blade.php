@@ -49,7 +49,6 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">Summary</a></li>
                     <li><a href="{{ url('/add') }}">Add modules / assignments</a></li>
-                    <li><a href="{{ url('/add') }}">Mark calculator</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
