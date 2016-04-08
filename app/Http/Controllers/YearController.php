@@ -2,34 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use App\Http\Requests;
 use Auth;
-use App\Module;
 
-class HomeController extends Controller
-{
+class YearController extends Controller {
+
     /**
-     * Home controller constructor
+     * Year grade controller constructor
      * Forces authentication so you have to be logged in
      */
     public function __construct() {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the summary view
-     */
-    public function view_home($order_by = 'module_code') {
+    public function view_year_grade() {
         // Collect the modules from the database for the user
         $user = Auth::user();
-        $modules = $user->modules()->orderBy($order_by, 'asc')->get();
+        $modules = $user->modules()->orderBy('module_code', 'asc')->get();
         // Work out the averages
         $averages = $this->moduleAverages($modules);
         // Return the view passing the data
-        return view('home', [
+        return view('year', [
             'modules' => $modules,
-            'averages' => $averages,
-            'order_by' => $order_by
+            'averages' => $averages
         ]);
     }
 }

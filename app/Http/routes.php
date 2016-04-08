@@ -14,68 +14,33 @@
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
-    /**
-     * Welcome route (homepage)
-     * No controller necessary
-     */
+    // Index route when user isn't logged in
     Route::get('/', function () {
         return view('welcome');
     });
 
-    /**
-     * Home route (Dashboard)
-     * Home controller forces auth
-     * Optional parameter to sort the data
-     */
+    // Home route with option ordering parameter
     Route::get('/home/{order_by?}', 'HomeController@view_home')->name('summary');
 
-    /**
-     * Add modules + assignments route
-     * Uses the module controller to force auth
-     */
+    // Add data route
     Route::get('/add', 'ModuleController@view_add');
 
-    /**
-     * Edit modules route
-     * Uses the module controller to force auth
-     */
+    // Edit data routes
     Route::get('/edit/module/{id}', 'ModuleController@view_edit_module');
-
-    /**
-     * Delete module route
-     * Uses the assignment controller to force auth
-     */
-    Route::get('/delete/module/{id}', 'ModuleController@delete_module');
-
-    /**
-     * Edit assignments route
-     * Uses the assignment controller to force auth
-     */
     Route::get('/edit/assignment/{id}', 'AssignmentController@view_edit_assignment');
 
-    /**
-     * Delete assignment route
-     * Uses the assignment controller to force auth
-     */
+    // Delete data routes
+    Route::get('/delete/module/{id}', 'ModuleController@delete_module');
     Route::get('/delete/assignment/{id}', 'AssignmentController@delete_assignment');
 
-    /**
-     * Post route for the add module form
-     */
-    Route::post('/add/new_module', 'ModuleController@add_new_module')->name('addNewModule');
+    // Year grade route
+    Route::get('/year', 'YearController@view_year_grade');
 
-    /**
-     * Post route for the add assignment form
-     */
+    // Add data post routes (for forms)
+    Route::post('/add/new_module', 'ModuleController@add_new_module')->name('addNewModule');
     Route::post('/add/new_assignment', 'AssignmentController@add_new_assignment')->name('addNewAssignment');
 
-    /**
-     * Post route for the edit module form
-     */
+    // Edit data post routes (for forms)
     Route::post('/edit/module', 'ModuleController@edit_module')->name('editModule');
-
-    /**
-     * Post route for the edit assignment form
-     */
     Route::post('/edit/assignment', 'AssignmentController@edit_assignment')->name('editAssignment');
 });
