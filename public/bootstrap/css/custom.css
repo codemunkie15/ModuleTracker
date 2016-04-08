@@ -37,3 +37,10 @@ footer .text {
 .table {
     margin-bottom: 5px;
 }
+
+.total {
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}

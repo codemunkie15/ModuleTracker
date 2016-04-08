@@ -33,6 +33,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="double_credits" {{ ($module->credits == 40) ? 'checked' : (Request::old('double_credits') ? 'checked' : '') }}> Double credit module
+                                    </label>
+                                </div>
                                 <input type="hidden" name="module_id" value="{{ $module->id }}">
                                 <div class="form-group form-inline float-right">
                                     <div class="form-group">

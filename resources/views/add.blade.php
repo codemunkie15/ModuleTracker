@@ -18,6 +18,7 @@
                         @if(session('module_success_message'))
                             <div class="alert alert-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{ session('module_success_message') }}</div>
                         @endif
+                        <p>Each module is assumed to be 20 credits however if you are adding a final year project or a dissertation please check the "Double credits" checkbox (40 credits).</p>
                         <form role="form" method="POST" action="{{ route('addNewModule') }}">
                             {!! csrf_field() !!}
                             <div class="row">
@@ -31,6 +32,11 @@
                                         <input type="text" name="module_name" class="form-control" placeholder="Module Name" value="{{ Request::old('module_name') }}">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="double_credits" {{ (Request::old('double_credits') ? 'checked' : '') }}> Double credit module
+                                </label>
                             </div>
                             <input type="submit" class="btn btn-success float-right" value="Add Module">
                         </form>

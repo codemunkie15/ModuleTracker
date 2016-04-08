@@ -65,6 +65,9 @@ class ModuleController extends Controller {
         $module = new Module();
         $module->module_code = $request['module_code'];
         $module->module_name = $request['module_name'];
+        if($request['double_credits']) {
+            $module->credits = 40;
+        }
 
         // Save the module to the user (using Laravel relations)
         $request->user()->modules()->save($module);
@@ -93,6 +96,11 @@ class ModuleController extends Controller {
         // Edit the fields
         $module->module_code = $request['module_code'];
         $module->module_name = $request['module_name'];
+        if($request['double_credits']) {
+            $module->credits = 40;
+        } else {
+            $module->credits = 20;
+        }
         // Update in database
         $module->update();
 
@@ -107,7 +115,7 @@ class ModuleController extends Controller {
         $messages = array();
         // If the module exists and it belongs to the user
         if($module != null) {
-            // Delete the assignment
+            // Delete the module and its assignments
             $module->delete();
             // Add the success message
             $messages = array(

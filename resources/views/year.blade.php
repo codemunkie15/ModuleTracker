@@ -10,6 +10,7 @@
                     </div>
 
                     <div class="panel-body">
+                        <p>Here you can view your overall marks for each of your modules and your overall year grade (year classification). Obviously it will only be accurate if you input all your marks for the year, so if you haven't completed all your assignments yet it will show an incomplete percentage.</p>
                         @if(count($modules) > 0)
                             <table class="table table-hover sortable" width="100%">
                                 <thead>
@@ -31,6 +32,8 @@
                             @endforeach
                                 </tbody>
                             </table>
+                            <div class="total">Total Mark For Year: {{ $year_total }}%</div>
+                            <div class="total">Total Mark Not Including 0%'s: {{ $year_total_no_zero }}%</div>
                         @else
                             You don't have any modules or assignments yet.<br>You can add some by <a href="{{ url('/add') }}">clicking here</a>.
                         @endif
