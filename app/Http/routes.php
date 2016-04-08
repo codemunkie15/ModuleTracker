@@ -36,6 +36,9 @@ Route::group(['middleware' => 'web'], function () {
     // Year grade route
     Route::get('/year', 'YearController@view_year_grade');
 
+    // Degree class route
+    Route::get('/degree', 'DegreeController@view_classification');
+
     // Add data post routes (for forms)
     Route::post('/add/new_module', 'ModuleController@add_new_module')->name('addNewModule');
     Route::post('/add/new_assignment', 'AssignmentController@add_new_assignment')->name('addNewAssignment');

@@ -27,4 +27,8 @@ class User extends Authenticatable
     public function modules() {
         return $this->hasMany('App\Module');
     }
+
+    public function previousYears() {
+        return $this->hasMany('App\PreviousYear');
+    }
 }
