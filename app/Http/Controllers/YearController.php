@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Auth;
+use App\Module;
 
 class YearController extends Controller {
 
@@ -21,15 +22,13 @@ class YearController extends Controller {
         // Collect the modules from the database for the user
         $user = Auth::user();
         $modules = $user->modules()->orderBy('module_code', 'asc')->get();
-        // Work out the averages
-        $averages = $this->moduleAverages($modules);
         // Work out the total grade weighted by the credits
         // work out the credit percentages
         $total_credits = 0;
         $total_credits_no_zero = 0;
         foreach($modules as $module) {
             $total_credits += $module->credits;
-            if($averages[$module->id] > 0) {
+            if($module->overallMark() > 0) {
                 $total_credits_no_zero += $module->credits;
             }
         }
@@ -42,23 +41,29 @@ class YearController extends Controller {
         $weighted_no_zero = 0;
         foreach($modules as $module) {
             if($module->credits == 40) {
-                $weighted += $averages[$module->id] * $credit_percentage_40;
-                if($averages[$module->id] > 0) {
-                    $weighted_no_zero += $averages[$module->id] * $credit_percentage_40_no_zero;
+                $weighted += $module->overallMark() * $credit_percentage_40;
+                if($module->overallMark() > 0) {
+                    $weighted_no_zero += $module->overallMark() * $credit_percentage_40_no_zero;
                 }
             } else {
-                $weighted += $averages[$module->id] * $credit_percentage_20;
-                if($averages[$module->id] > 0) {
-                    $weighted_no_zero += $averages[$module->id] * $credit_percentage_20_no_zero;
+                $weighted += $module->overallMark() * $credit_percentage_20;
+                if($module->overallMark() > 0) {
+                    $weighted_no_zero += $module->overallMark() * $credit_percentage_20_no_zero;
                 }
             }
         }
+        $dummy = new Module();
+        $year_total = round($weighted, 2);
+        $year_class = $dummy->markClass($year_total);
+        $year_total_no_zero = round($weighted_no_zero, 2);
+        $year_class_no_zero = $dummy->markClass($year_total_no_zero);
         // Return the view passing the data
         return view('year', [
             'modules' => $modules,
-            'averages' => $averages,
-            'year_total' => round($weighted, 2),
-            'year_total_no_zero' => round($weighted_no_zero, 2)
+            'year_total' => $year_total,
+            'year_class' => $year_class,
+            'year_total_no_zero' => $year_total_no_zero,
+            'year_class_no_zero' => $year_class_no_zero
         ]);
     }
 }

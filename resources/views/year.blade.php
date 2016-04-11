@@ -27,13 +27,13 @@
                                     <td>{{ $module->module_code }}</td>
                                     <td>{{ $module->module_name }}</td>
                                     <td>{{ $module->credits }}</td>
-                                    <td>{{ $averages[$module->id] }}%</td>
+                                    <td>{{ $module->overallMark() }}%</td>
                                 </tr>
                             @endforeach
                                 </tbody>
                             </table>
-                            <div class="total">Total Mark For Year: {{ $year_total }}%</div>
-                            <div class="total">Total Mark Not Including 0%'s: {{ $year_total_no_zero }}%</div>
+                            <div class="total">Total Mark For Year: {{ $year_total }}% {{ $year_class }}</div>
+                            <div class="total">Total Mark Not Including 0%'s: {{ $year_total_no_zero }}% {{ $year_class_no_zero }}</div>
                         @else
                             You don't have any modules or assignments yet.<br>You can add some by <a href="{{ url('/add') }}">clicking here</a>.
                         @endif
