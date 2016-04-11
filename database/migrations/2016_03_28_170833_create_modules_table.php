@@ -18,6 +18,7 @@ class CreateModulesTable extends Migration
             $table->integer('user_id');
             $table->string('module_code');
             $table->string('module_name');
+            $table->integer('credits');
         });
     }
 
