@@ -15,9 +15,9 @@ class CreatePreviousYearsTable extends Migration
         Schema::create('previous_years', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('year_name');
+            $table->integer('year');
             $table->integer('year_percentage');
-            $table->decimal('mark');
+            $table->integer('mark');
             $table->timestamps();
         });
     }

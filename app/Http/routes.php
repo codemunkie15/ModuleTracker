@@ -46,4 +46,8 @@ Route::group(['middleware' => 'web'], function () {
     // Edit data post routes (for forms)
     Route::post('/edit/module', 'ModuleController@edit_module')->name('editModule');
     Route::post('/edit/assignment', 'AssignmentController@edit_assignment')->name('editAssignment');
+
+    // Degree classification post routes
+    Route::post('/degree/calculate_class', 'DegreeController@calculate_classification')->name('calcClass');
+    Route::post('/degree/add_previous_year', 'DegreeController@add_previous_year')->name('addPreviousYear');
 });
