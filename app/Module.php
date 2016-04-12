@@ -14,6 +14,19 @@ class Module extends Model
         return $this->hasMany('App\Assignment');
     }
 
+    /**
+     * Return the sum of all the assignment percentages for the module
+     */
+    public function sumPercentages() {
+        // Get the assignments for the module
+        $assignments = $this->assignments()->get();
+        $percent = 0;
+        foreach($assignments as $assignment) {
+            $percent += $assignment->mark_percentage;
+        }
+        return $percent;
+    }
+
     public function overallMark() {
         // Get the assignments for the module
         $mod_assignments = $this->assignments()->get();
@@ -26,10 +39,10 @@ class Module extends Model
                 // Add the mark percentage to the current count
                 $mark_count += $assignment->current_mark * ($assignment->mark_percentage / 100);
             }
-            // Store the average
+            // Return the mark
             return round($mark_count, 2);
         } else {
-            // No assignments so average is 0
+            // No assignments so mark is 0
             return 0;
         }
     }

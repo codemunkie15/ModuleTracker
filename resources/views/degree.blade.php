@@ -30,13 +30,13 @@
                                                 <td>{{ $year->yearText() }}</td>
                                                 <td>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="year[{{ $year->year }}][percentage]" value="{{ $year->year_percentage }}">
+                                                        <input type="text" class="form-control input-percentage" name="year[{{ $year->year }}][percentage]" value="{{ $year->year_percentage }}">
                                                         <div class="input-group-addon">%</div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="year[{{ $year->year }}][mark]" value="{{ $year->mark }}">
+                                                        <input type="text" class="form-control input-mark" name="year[{{ $year->year }}][mark]" value="{{ $year->mark }}">
                                                         <div class="input-group-addon">%</div>
                                                     </div>
                                                 </td>
@@ -46,13 +46,13 @@
                                             <td>Current Year</td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" name="year[0][percentage]" value="{{ Request::old('year[0][percentage]') }}">
+                                                    <input type="text" class="form-control input-percentage" name="year[0][percentage]" value="{{ Request::old('year[0][percentage]') }}">
                                                     <div class="input-group-addon">%</div>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" name="year[0][mark]" value="{{ $year_mark }}">
+                                                    <input type="text" class="form-control input-mark" name="year[0][mark]" value="{{ $year_mark }}">
                                                     <div class="input-group-addon">%</div>
                                                 </div>
                                             </td>
