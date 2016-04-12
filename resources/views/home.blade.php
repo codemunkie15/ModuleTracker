@@ -55,8 +55,9 @@
                                             <tr>
                                                 <td></td>
                                                 <td><b>Overall:</b></td>
-                                                <td>{{ $averages[$module->id] }}%</td>
-                                                <td></td>
+                                                <td>{{ $module->overallMark() }}%</td>
+                                                <td>{{ $module->markClass() }}
+                                                </td>
                                                 <td></td>
                                             </tr>
                                         </tfoot>

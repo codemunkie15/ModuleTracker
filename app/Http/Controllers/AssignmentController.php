@@ -7,6 +7,7 @@ use Auth;
 use App\Http\Requests;
 use App\Assignment;
 use Validator;
+use App\Module;
 
 class AssignmentController extends Controller {
 
@@ -46,15 +47,29 @@ class AssignmentController extends Controller {
      * Add a new assignment - called from the post route (Form)
      */
     public function add_new_assignment(Request $request) {
+        // Create a custom validation rule to check if the assignment percentages would exceed 100%
+        Validator::extend('percentage_check', function( $attribute, $value, $parameters, $validator) {
+            // Get the sum of the current assignments for the module
+            $current = Module::find($validator->getData()['module_id'])->sumPercentages();
+            // Add on the new percentage
+            $current += $value;
+            // Check if it is below 100%
+            if($current <= 100) {
+                return true;
+            } else {
+                return false;
+            }
+        });
         // Setup a validator (with a custom error message)
         $validator = Validator::make($request->all(), [
             'module_id' => 'required',
             'assignment_name' => 'required|max:80',
-            'assignment_percentage' => 'required|between:1,100|integer',
+            'assignment_percentage' => 'required|between:1,100|integer|percentage_check',
             'assignment_mark' => 'required|between:0,100|integer',
             'assignment_deadline' => 'required|date_format:d-m-Y'
         ], [
-            'module_id.required' => 'You need to choose a module for the assignment.'
+            'module_id.required' => 'You need to choose a module for the assignment.',
+            'assignment_percentage.percentage_check' => 'Your assignment percentages for a module cannot exceed 100%.'
         ]);
 
         // Validate

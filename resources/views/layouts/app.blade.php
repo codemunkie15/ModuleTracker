@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{!! csrf_token() !!}">
 
     <title>Module Tracker</title>
 
@@ -47,11 +48,25 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Summary</a></li>
-                    <li><a href="{{ url('/add') }}">Add modules / assignments</a></li>
-                    <li><a href="{{ url('/year') }}">Whole year grade</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Modules / Assignments <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/home') }}">Summary</a></li>
+                            <li><a href="{{ url('/add') }}">Add modules / assignments</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Tools <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/year') }}">Year grade calculator</a></li>
+                            <li><a href="{{ url('/degree') }}">Degree class calculator</a></li>
+                        </ul>
+                    </li>
                 </ul>
-
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
@@ -90,5 +105,6 @@
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/sorttable.js') }}"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    @yield('custom_javascript')
 </body>
 </html>

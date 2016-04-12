@@ -23,12 +23,9 @@ class HomeController extends Controller
         // Collect the modules from the database for the user
         $user = Auth::user();
         $modules = $user->modules()->orderBy($order_by, 'asc')->get();
-        // Work out the averages
-        $averages = $this->moduleAverages($modules);
         // Return the view passing the data
         return view('home', [
             'modules' => $modules,
-            'averages' => $averages,
             'order_by' => $order_by
         ]);
     }

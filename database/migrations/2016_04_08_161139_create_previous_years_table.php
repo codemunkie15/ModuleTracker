@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModulesTable extends Migration
+class CreatePreviousYearsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,13 @@ class CreateModulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::create('previous_years', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->integer('user_id');
-            $table->string('module_code');
-            $table->string('module_name');
-            $table->integer('credits');
+            $table->integer('year');
+            $table->integer('year_percentage');
+            $table->integer('mark');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateModulesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('modules');
+        Schema::drop('previous_years');
     }
 }
