@@ -31,4 +31,20 @@ class User extends Authenticatable
     public function previousYears() {
         return $this->hasMany('App\PreviousYear');
     }
+
+    public function isAdmin() {
+        if($this->admin == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function isBanned() {
+        if($this->banned == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

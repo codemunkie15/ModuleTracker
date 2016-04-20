@@ -27,48 +27,60 @@
     </style>
 </head>
 <body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
 
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+            <!-- Collapsed Hamburger -->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
 
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Module Tracker
-                </a>
-            </div>
+            <!-- Branding Image -->
+            <a class="navbar-brand" href="{{ url('/') }}">
+                Module Tracker
+            </a>
+        </div>
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
+        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+            <!-- Left Side Of Navbar -->
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Modules / Assignments <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ url('/home') }}">Summary</a></li>
+                        <li><a href="{{ url('/add') }}">Add modules / assignments</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Tools <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ url('/year') }}">Year grade calculator</a></li>
+                        <li><a href="{{ url('/degree') }}">Degree class calculator</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Right Side Of Navbar -->
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Admin Links -->
+                @if(!Auth::guest() && Auth::user()->isAdmin())
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            Modules / Assignments <span class="caret"></span>
+                            Admin Panel <span class="caret"></span>
                         </a>
+
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/home') }}">Summary</a></li>
-                            <li><a href="{{ url('/add') }}">Add modules / assignments</a></li>
+                            <li><a href="{{ url('/admin/users') }}"><i class="fa fa-user"></i> User List</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            Tools <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/year') }}">Year grade calculator</a></li>
-                            <li><a href="{{ url('/degree') }}">Degree class calculator</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
+                    @endif
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
@@ -80,31 +92,31 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
                             </ul>
                         </li>
                     @endif
-                </ul>
-            </div>
+            </ul>
         </div>
-    </nav>
-
-    @yield('content')
-
-    <div class="container">
-        <hr>
-        <footer>
-            <div class="text">
-                Callum Ellis 2016.
-            </div>
-        </footer>
     </div>
+</nav>
 
-    <!-- JavaScripts -->
-    <script src="{{ asset('bootstrap/js/jquery-1.12.2.min.js') }}"></script>
-    <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('bootstrap/js/sorttable.js') }}"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
-    @yield('custom_javascript')
+@yield('content')
+
+<div class="container">
+    <hr>
+    <footer>
+        <div class="text">
+            Callum Ellis 2016.
+        </div>
+    </footer>
+</div>
+
+<!-- JavaScripts -->
+<script src="{{ asset('bootstrap/js/jquery-1.12.2.min.js') }}"></script>
+<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('bootstrap/js/sorttable.js') }}"></script>
+{{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+@yield('custom_javascript')
 </body>
 </html>

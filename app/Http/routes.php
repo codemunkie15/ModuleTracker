@@ -50,4 +50,7 @@ Route::group(['middleware' => 'web'], function () {
     // Degree classification post routes
     Route::post('/degree/calculate_class', 'DegreeController@calculate_classification')->name('calcClass');
     Route::post('/degree/add_previous_year', 'DegreeController@add_previous_year')->name('addPreviousYear');
+
+    // Admin routes
+    Route::get('/admin/users', 'AdminController@view_users');
 });
