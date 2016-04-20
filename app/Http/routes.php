@@ -53,4 +53,6 @@ Route::group(['middleware' => 'web'], function () {
 
     // Admin routes
     Route::get('/admin/users', 'AdminController@view_users');
+    Route::get('/admin/ban/{user_id}', 'AdminController@banUser');
+    Route::get('/admin/make/{user_id}', 'AdminController@makeAdmin');
 });

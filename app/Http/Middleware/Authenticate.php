@@ -23,6 +23,9 @@ class Authenticate
             } else {
                 return redirect()->guest('login');
             }
+        } elseif(Auth::user()->isBanned()) {
+            // User is banned so give them an error message
+            return view('errors.banned');
         }
 
         return $next($request);
