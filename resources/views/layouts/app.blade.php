@@ -9,11 +9,11 @@
     <title>Module Tracker</title>
 
     <!-- Fonts -->
-    <link href="{{ asset('bootstrap/css/font-awesome.min.css') }}" rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
-    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('bootstrap/css/custom.css') }}" rel="stylesheet">
 
     <style>
@@ -113,8 +113,8 @@
 </div>
 
 <!-- JavaScripts -->
-<script src="{{ asset('bootstrap/js/jquery-1.12.2.min.js') }}"></script>
-<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="{{ asset('bootstrap/js/sorttable.js') }}"></script>
 {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 @yield('custom_javascript')
