@@ -24,20 +24,28 @@ class YearController extends Controller {
         $modules = $user->modules()->orderBy('module_code', 'asc')->get();
         // Get the year marks
         $year_marks = $this->getYearMark($modules);
-        // Make a module object to use the markClass() method
-        $dummy = new Module();
-        // Get all our values
-        $year_total = round($year_marks['mark'], 2);
-        $year_class = $dummy->markClass($year_total);
-        $year_total_no_zero = round($year_marks['mark_non_zero'], 2);
-        $year_class_no_zero = $dummy->markClass($year_total_no_zero);
-        // Return the view passing the data
-        return view('year', [
-            'modules' => $modules,
-            'year_total' => $year_total,
-            'year_class' => $year_class,
-            'year_total_no_zero' => $year_total_no_zero,
-            'year_class_no_zero' => $year_class_no_zero
-        ]);
+        // Check if the year mark was worked out successfully
+        if($year_marks != false) {
+            // Make a module object to use the markClass() method
+            $dummy = new Module();
+            // Get all our values
+            $year_total = round($year_marks['mark'], 2);
+            $year_class = $dummy->markClass($year_total);
+            $year_total_no_zero = round($year_marks['mark_non_zero'], 2);
+            $year_class_no_zero = $dummy->markClass($year_total_no_zero);
+            // Return the view passing the data
+            return view('year', [
+                'modules' => $modules,
+                'year_total' => $year_total,
+                'year_class' => $year_class,
+                'year_total_no_zero' => $year_total_no_zero,
+                'year_class_no_zero' => $year_class_no_zero
+            ]);
+        } else {
+            // Return the view ready to throw an error
+            return view('year', [
+                'modules' => $modules
+            ]);
+        }
     }
 }

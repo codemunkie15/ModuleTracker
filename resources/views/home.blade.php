@@ -33,10 +33,10 @@
                                     <table class="table table-hover sortable" width="100%">
                                         <thead>
                                         <tr>
-                                            <th width="58%">Assignment Name</th>
+                                            <th width="56%">Assignment Name</th>
                                             <th width="11%">Percentage</th>
                                             <th width="9%">Mark</th>
-                                            <th width="14%">Deadline</th>
+                                            <th width="16%">Deadline</th>
                                             <th width="8%">Actions</th>
                                         </tr>
                                         </thead>
