@@ -10,7 +10,18 @@
                     </div>
 
                     <div class="panel-body">
+                        @if(session('success_message'))
+                            <div class="alert alert-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{ session('success_message') }}</div>
+                        @endif
                         <p>Here you can view your overall marks for each of your modules and your overall year grade (year classification). Obviously it will only be accurate if you input all your marks for the year, so if you haven't completed all your assignments yet it will show an incomplete percentage.</p>
+                        <div class="checkbox">
+                            <form method="POST" action="{{ route('post.drop_module') }}">
+                                {{ csrf_field() }}
+                                <label>
+                                    <input type="checkbox" name="drop_module" onchange="this.form.submit()" {{ (Auth::user()->drop_module == 1) ? 'checked' : '' }}> <b>Don't include my lowest mark module (excluding double credit modules)</b>
+                                </label>
+                            </form>
+                        </div>
                         @if(count($modules) > 0)
                             <table class="table table-hover sortable" width="100%">
                                 <thead>
@@ -23,7 +34,7 @@
                                 </thead>
                                 <tbody>
                             @foreach($modules as $module)
-                                <tr>
+                                <tr{{ ($module->id == $worst_id) ? ' class=strike' : '' }}>
                                     <td>{{ $module->module_code }}</td>
                                     <td>{{ $module->module_name }}</td>
                                     <td>{{ $module->credits }}</td>

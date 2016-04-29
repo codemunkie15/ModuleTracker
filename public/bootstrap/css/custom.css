@@ -59,3 +59,9 @@ footer .text {
 .class-box .text {
     margin-bottom: 10px;
 }
+
+tr.strike {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAGklEQVQIW2NkwAIYsQqeOXPmP7oEdpXYtAMAzj0DaeW3uJsAAAAASUVORK5CYII=');
+    background-repeat: repeat-x;
+    background-position: 50% 50%;
+}

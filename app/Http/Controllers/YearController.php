@@ -39,7 +39,8 @@ class YearController extends Controller {
                 'year_total' => $year_total,
                 'year_class' => $year_class,
                 'year_total_no_zero' => $year_total_no_zero,
-                'year_class_no_zero' => $year_class_no_zero
+                'year_class_no_zero' => $year_class_no_zero,
+                'worst_id' => $year_marks['worst_id']
             ]);
         } else {
             // Return the view ready to throw an error
@@ -47,5 +48,21 @@ class YearController extends Controller {
                 'modules' => $modules
             ]);
         }
+    }
+
+    public function post_drop_module(Request $request) {
+        // Get the user
+        $user = $request->user();
+        if($request['drop_module']) {
+            // Checked so value = 1
+            $user->drop_module = 1;
+        } else {
+            // Not checked so value = 0
+            $user->drop_module = 0;
+        }
+        // Update
+        $user->update();
+        // Return redirect
+        return redirect()->back()->with('success_message', 'Your settings have been updated.');
     }
 }

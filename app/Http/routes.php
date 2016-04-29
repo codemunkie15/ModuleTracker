@@ -35,6 +35,7 @@ Route::group(['middleware' => 'web'], function () {
 
     // Year grade route
     Route::get('/year', 'YearController@view_year_grade');
+    Route::post('/year/drop', 'YearController@post_drop_module')->name('post.drop_module');
 
     // Degree class route
     Route::get('/degree', 'DegreeController@view_classification');
